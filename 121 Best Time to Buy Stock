@@ -1,0 +1,35 @@
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+
+        """ calculates the maximum profit between 2 days """
+        
+        profit = 0
+        st_point = len(prices)
+
+        #checking that the starting point min < max
+        for j in range(len(prices)-1):
+
+            if prices[j]< prices[j+1]:
+
+                min_val = prices[j]
+                max_val = prices[j+1]
+                profit = max_val - min_val
+                st_point = j+2
+                break
+
+        #continuing from st_point
+        for i in range(st_point,len(prices)):
+
+            if prices[i] > max_val:
+                max_val = prices[i]
+
+            elif prices[i] < min_val and i+1 < len(prices):
+                max_val = prices[i+1]
+                min_val = prices[i]
+
+            if max_val - min_val > profit:
+                profit = max_val - min_val
+
+        return profit
+
+    
